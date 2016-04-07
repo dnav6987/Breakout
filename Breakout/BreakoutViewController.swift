@@ -35,12 +35,16 @@ class BreakoutViewController: UIViewController {
     }
     
     func newGame() {
-        let brickFrame = CGRect(origin: CGPointZero, size: brickSize)
-        let brickView = UIView(frame: brickFrame)
-        brickView.backgroundColor = UIColor.random
-        gameView.addSubview(brickView)
-//        dropItBehavior.addDrop(dropView)
+        for row in 0..<BreakoutGameConst.numRows {
+            for col in 0..<BreakoutGameConst.bricksPerCol {
+                let origin = CGPoint(x: CGFloat(col)*brickSize.width, y: CGFloat(row)*brickSize.height)
+                let brick = Brick(frame: CGRect(origin: origin, size: brickSize))
+                brick.backgroundColor = UIColor.random
+                gameView.addSubview(brick)
+                //          dropItBehavior.addDrop(dropView)
 
+            }
+        }
     }
 }
 
