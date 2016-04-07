@@ -8,47 +8,69 @@
 
 import UIKit
 
-class BreakoutViewController: UIViewController {
-    typealias Brick = UIView
-    typealias Ball = UIView
-    typealias Paddle = UIView
-    
+typealias Brick = UIView
+typealias Ball = UIView
+typealias Paddle = UIView
+
+class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
     // TODO put in settings
-    struct BreakoutGameConst {
-        static let bricksPerCol = 12
-        static let brickAspectRatio = 3
+    struct BreakoutGameConstants {
+        static let bricksPerCol: CGFloat = 12
+        static let brickAspectRatio: CGFloat = 3
         static let numRows = 7
+        static let brickCornerRadius: CGFloat = 10
     }
     
     @IBOutlet var gameView: UIView!
     
+    let breakoutBehavior = BreakoutBehavior()
+    
+    lazy var animator : UIDynamicAnimator = {
+        let lazyAnimator = UIDynamicAnimator(referenceView: self.gameView)
+        lazyAnimator.delegate = self
+        return lazyAnimator
+    }()
+
+    
     var brickSize: CGSize {
-        let width = CGFloat(gameView.bounds.width / CGFloat(BreakoutGameConst.bricksPerCol))
-        let height = CGFloat(gameView.bounds.height / CGFloat(BreakoutGameConst.bricksPerCol * BreakoutGameConst.brickAspectRatio))
+        let width = gameView.bounds.width / BreakoutGameConstants.bricksPerCol
+        let height = gameView.bounds.height / (BreakoutGameConstants.bricksPerCol * BreakoutGameConstants.brickAspectRatio)
         return CGSize(width: width, height: height)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        animator.addBehavior(breakoutBehavior)
+        gameView.backgroundColor = UIColor.blackColor()
         newGame()
     }
     
     func newGame() {
-        for row in 0..<BreakoutGameConst.numRows {
-            for col in 0..<BreakoutGameConst.bricksPerCol {
-                let origin = CGPoint(x: CGFloat(col)*brickSize.width, y: CGFloat(row)*brickSize.height)
-                let brick = Brick(frame: CGRect(origin: origin, size: brickSize))
-                brick.backgroundColor = UIColor.random
-                gameView.addSubview(brick)
-                //          dropItBehavior.addDrop(dropView)
-
+        for row in 0..<BreakoutGameConstants.numRows {
+            for col in 0..<Int(BreakoutGameConstants.bricksPerCol) {
+                if CGFloat.random(100) < 80 {
+                    let origin = CGPoint(x: CGFloat(col)*brickSize.width, y: CGFloat(row)*brickSize.height)
+                    let brick = Brick.newBrick(origin, size: brickSize, cornerRadius: BreakoutGameConstants.brickCornerRadius)
+                    gameView.addSubview(brick)
+                    
+                    let path = UIBezierPath(roundedRect: brick.frame, cornerRadius: BreakoutGameConstants.brickCornerRadius)
+                    breakoutBehavior.addBarrier(path, named: "Brick" + "\(row*Int(BreakoutGameConstants.bricksPerCol) + col)")
+                }
             }
         }
     }
 }
 
-// TODO NEEDED???
+private extension Brick {
+    static func newBrick(origin: CGPoint, size: CGSize, cornerRadius: CGFloat) -> Brick {
+        let frame = CGRect(origin: origin, size: size)
+        let brick = Brick(frame: frame)
+        brick.layer.cornerRadius = cornerRadius
+        brick.backgroundColor = UIColor.random
+        return brick
+    }
+}
+
 private extension CGFloat {
     static func random(max: Int) -> CGFloat {
         return CGFloat(arc4random() % UInt32(max))
@@ -64,7 +86,7 @@ private extension UIColor {
         case 3: return UIColor.greenColor()
         case 4: return UIColor.blueColor()
         case 5: return UIColor.purpleColor()
-        default: return UIColor.blackColor()
+        default: return UIColor.whiteColor()
         }
     }
 }
