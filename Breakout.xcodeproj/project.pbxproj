@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3EB1722F1CB6E72F00C69BC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1722E1CB6E72F00C69BC3 /* AppDelegate.swift */; };
-		3EB172311CB6E72F00C69BC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB172301CB6E72F00C69BC3 /* ViewController.swift */; };
 		3EB172341CB6E72F00C69BC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EB172321CB6E72F00C69BC3 /* Main.storyboard */; };
 		3EB172361CB6E72F00C69BC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EB172351CB6E72F00C69BC3 /* Assets.xcassets */; };
 		3EB172391CB6E72F00C69BC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EB172371CB6E72F00C69BC3 /* LaunchScreen.storyboard */; };
 		3EB172441CB6E72F00C69BC3 /* BreakoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB172431CB6E72F00C69BC3 /* BreakoutTests.swift */; };
 		3EB1724F1CB6E72F00C69BC3 /* BreakoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1724E1CB6E72F00C69BC3 /* BreakoutUITests.swift */; };
+		3EB1725D1CB6EA7100C69BC3 /* BreakoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */; };
+		3EB172651CB6EC0F00C69BC3 /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB172641CB6EC0F00C69BC3 /* GameElements.swift */; };
+		3EB1726D1CB6EE0800C69BC3 /* BreakoutBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1726C1CB6EE0800C69BC3 /* BreakoutBehavior.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,6 @@
 /* Begin PBXFileReference section */
 		3EB1722B1CB6E72F00C69BC3 /* Breakout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB1722E1CB6E72F00C69BC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3EB172301CB6E72F00C69BC3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3EB172331CB6E72F00C69BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3EB172351CB6E72F00C69BC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EB172381CB6E72F00C69BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +48,9 @@
 		3EB1724A1CB6E72F00C69BC3 /* BreakoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreakoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB1724E1CB6E72F00C69BC3 /* BreakoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakoutUITests.swift; sourceTree = "<group>"; };
 		3EB172501CB6E72F00C69BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutViewController.swift; sourceTree = "<group>"; };
+		3EB172641CB6EC0F00C69BC3 /* GameElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
+		3EB1726C1CB6EE0800C69BC3 /* BreakoutBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutBehavior.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +102,10 @@
 			isa = PBXGroup;
 			children = (
 				3EB1722E1CB6E72F00C69BC3 /* AppDelegate.swift */,
-				3EB172301CB6E72F00C69BC3 /* ViewController.swift */,
+				3EB1726C1CB6EE0800C69BC3 /* BreakoutBehavior.swift */,
+				3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */,
 				3EB172321CB6E72F00C69BC3 /* Main.storyboard */,
+				3EB172641CB6EC0F00C69BC3 /* GameElements.swift */,
 				3EB172351CB6E72F00C69BC3 /* Assets.xcassets */,
 				3EB172371CB6E72F00C69BC3 /* LaunchScreen.storyboard */,
 				3EB1723A1CB6E72F00C69BC3 /* Info.plist */,
@@ -259,7 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EB172311CB6E72F00C69BC3 /* ViewController.swift in Sources */,
+				3EB1725D1CB6EA7100C69BC3 /* BreakoutViewController.swift in Sources */,
+				3EB172651CB6EC0F00C69BC3 /* GameElements.swift in Sources */,
+				3EB1726D1CB6EE0800C69BC3 /* BreakoutBehavior.swift in Sources */,
 				3EB1722F1CB6E72F00C69BC3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +495,7 @@
 				3EB172551CB6E72F00C69BC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EB172561CB6E72F00C69BC3 /* Build configuration list for PBXNativeTarget "BreakoutTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +504,7 @@
 				3EB172581CB6E72F00C69BC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EB172591CB6E72F00C69BC3 /* Build configuration list for PBXNativeTarget "BreakoutUITests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +513,7 @@
 				3EB1725B1CB6E72F00C69BC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
