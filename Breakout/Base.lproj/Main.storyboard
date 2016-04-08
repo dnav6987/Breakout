@@ -16,7 +16,19 @@
                     <view key="view" contentMode="scaleToFill" id="Zt2-8l-GKC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="A7Q-wv-WhY">
+                                <rect key="frame" x="355" y="290" width="118" height="31"/>
+                            </slider>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TYh-tP-aGc">
+                                <rect key="frame" x="390" y="199" width="51" height="31"/>
+                            </switch>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="NEq-Tv-5eU">
+                                <rect key="frame" x="362" y="379" width="94" height="29"/>
+                            </stepper>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" id="uHK-Ip-3Q2"/>
                 </viewController>
@@ -36,6 +48,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="uIL-ce-Vg5" appends="YES" id="3TO-a1-AJN"/>
+                            <outletCollection property="gestureRecognizers" destination="dAL-zY-KuW" appends="YES" id="rnJ-8A-r0m"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Game" id="EWB-pg-DLi"/>
                     <connections>
@@ -43,6 +60,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyl-ub-nKf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="uIL-ce-Vg5"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dAL-zY-KuW"/>
             </objects>
             <point key="canvasLocation" x="594" y="413"/>
         </scene>

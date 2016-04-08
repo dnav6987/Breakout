@@ -54,7 +54,11 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     func removeBrick(identifier: String) {
         removeBarrier(named: identifier)
         if let brick = bricks[identifier] {
-         UIView.transitionWithView(brick, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromRight, animations: nil, completion: nil)
+         UIView.transitionWithView(brick,
+                                   duration: 1,
+                                   options: UIViewAnimationOptions.TransitionFlipFromRight,
+                                   animations: nil,
+                                   completion: nil)
             brick.removeFromSuperview()
             bricks.removeValueForKey(identifier)
         }
@@ -72,6 +76,10 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         collider.removeItem(ball)
         ballBehavior.removeItem(ball)
         ball.removeFromSuperview()
+    }
+    
+    func addPaddle(paddle: Paddle, identifier: String, boundary: UIBezierPath) {
+        addBarrier(boundary, named: identifier)
     }
     
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {

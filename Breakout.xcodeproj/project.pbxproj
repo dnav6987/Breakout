@@ -15,6 +15,7 @@
 		3EB1724F1CB6E72F00C69BC3 /* BreakoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1724E1CB6E72F00C69BC3 /* BreakoutUITests.swift */; };
 		3EB1725D1CB6EA7100C69BC3 /* BreakoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */; };
 		3EB1726D1CB6EE0800C69BC3 /* BreakoutBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1726C1CB6EE0800C69BC3 /* BreakoutBehavior.swift */; };
+		3EB1726F1CB8223F00C69BC3 /* BreakoutGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1726E1CB8223F00C69BC3 /* BreakoutGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		3EB172501CB6E72F00C69BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutViewController.swift; sourceTree = "<group>"; };
 		3EB1726C1CB6EE0800C69BC3 /* BreakoutBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutBehavior.swift; sourceTree = "<group>"; };
+		3EB1726E1CB8223F00C69BC3 /* BreakoutGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakoutGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				3EB1722E1CB6E72F00C69BC3 /* AppDelegate.swift */,
 				3EB1726C1CB6EE0800C69BC3 /* BreakoutBehavior.swift */,
 				3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */,
+				3EB1726E1CB8223F00C69BC3 /* BreakoutGame.swift */,
 				3EB172321CB6E72F00C69BC3 /* Main.storyboard */,
 				3EB172351CB6E72F00C69BC3 /* Assets.xcassets */,
 				3EB172371CB6E72F00C69BC3 /* LaunchScreen.storyboard */,
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EB1726F1CB8223F00C69BC3 /* BreakoutGame.swift in Sources */,
 				3EB1725D1CB6EA7100C69BC3 /* BreakoutViewController.swift in Sources */,
 				3EB1726D1CB6EE0800C69BC3 /* BreakoutBehavior.swift in Sources */,
 				3EB1722F1CB6E72F00C69BC3 /* AppDelegate.swift in Sources */,
