@@ -13,7 +13,7 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
     lazy var gravity: UIGravityBehavior = {
         let lazyGravity = UIGravityBehavior()
-        lazyGravity.gravityDirection = CGVectorMake(0, -1.0)
+        lazyGravity.gravityDirection = CGVectorMake(0, 0.5)
         return lazyGravity
     }()   // TODO needed?
 
@@ -84,14 +84,14 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {
         if identifier != nil {
-            if "\(identifier)" != "Paddle" {
-                gravity.gravityDirection.dy = 1.0
+            if "\(identifier!)" != "Paddle" {
+                gravity.gravityDirection.dy = 0.5
                 removeBrick("\(identifier!)")
             } else {
-                gravity.gravityDirection.dy = -1.0
+                gravity.gravityDirection.dy = -0.5
             }
         } else if fabs(fabs(p.y) - item.bounds.minY) < 2 {  // arbitrary
-            gravity.gravityDirection.dy = 1.0
+            gravity.gravityDirection.dy = 0.5
         }
     }
 }

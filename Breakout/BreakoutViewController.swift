@@ -18,7 +18,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
         lazyAnimator.delegate = self
         return lazyAnimator
     }()
-    
+        
     var breakoutGame = BreakoutGame()
 
     override func viewDidLoad() {
@@ -26,5 +26,20 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
         animator.addBehavior(breakoutBehavior)
         gameView.backgroundColor = UIColor.blackColor()
         breakoutGame.newGame(gameView, behavior: breakoutBehavior)
+    }
+    //TODO tap gesture
+    
+    @IBAction func movePaddle(sender: UIPanGestureRecognizer) {
+        let dx = sender.translationInView(gameView).x
+        switch sender.state {
+        case .Changed:
+            breakoutGame.movePaddle(dx)
+            sender.setTranslation(CGPointZero, inView: gameView)
+        default: break
+        }
+    }
+
+        //TODO
+    @IBAction func reset(sender: UILongPressGestureRecognizer) {
     }
 }

@@ -29,6 +29,7 @@ struct Constants {
 class BreakoutGame {
     var gameView = UIView()
     var breakoutBehavior = BreakoutBehavior()
+    var paddle = Paddle()
     
     func newGame(view: UIView, behavior: BreakoutBehavior) {
         gameView = view
@@ -57,12 +58,16 @@ class BreakoutGame {
 
         let paddleOrigin = CGPoint(x: gameView.center.x - Paddle.getPaddleSize(gameView).width/2,
                                    y: gameView.bounds.maxY - 5*Paddle.getPaddleSize(gameView).height)
-        let paddle = Paddle(view: gameView,
+        paddle = Paddle(view: gameView,
                             origin: paddleOrigin,
                             size: Paddle.getPaddleSize(gameView),
                             cornerRadius: Constants.paddleCornerRadius,
                             true)
         breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.path)
+    }
+    
+    func movePaddle(dx: CGFloat) {  // negative values are left, possitive values are right
+        paddle.move(dx)
     }
 }
 
@@ -105,6 +110,13 @@ private extension Paddle {
         let width = gameView.bounds.width / Constants.paddlesPerRow
         let height = gameView.bounds.height / (Constants.paddlesPerRow * Constants.paddleAspectRatio)
         return CGSize(width: width, height: height)
+    }
+    
+    func move(dx: CGFloat) {  // negative values are left, possitive values are right
+        if (self.frame.origin.x > self.superview!.frame.minX || dx>0) &&
+            (self.frame.origin.x + Paddle.getPaddleSize(self.superview!).width < self.superview!.frame.maxX || dx<0) {
+            self.frame.origin.x += dx
+        }
     }
 }
 

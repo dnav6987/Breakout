@@ -60,8 +60,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyl-ub-nKf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="uIL-ce-Vg5"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dAL-zY-KuW"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="uIL-ce-Vg5">
+                    <connections>
+                        <action selector="movePaddle:" destination="XBc-75-S7S" id="3lD-mp-Qzm"/>
+                    </connections>
+                </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dAL-zY-KuW">
+                    <connections>
+                        <action selector="reset:" destination="XBc-75-S7S" id="JQg-5Z-XHR"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="594" y="413"/>
         </scene>
