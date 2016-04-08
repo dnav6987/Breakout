@@ -17,7 +17,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
     struct BreakoutGameConstants {
         static let bricksPerCol: CGFloat = 12
         static let brickAspectRatio: CGFloat = 3
-        static let numRows = 7
+        static let numRows = 1
         static let brickCornerRadius: CGFloat = 10
     }
     
@@ -52,12 +52,20 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
                     let origin = CGPoint(x: CGFloat(col)*brickSize.width, y: CGFloat(row)*brickSize.height)
                     let brick = Brick.newBrick(origin, size: brickSize, cornerRadius: BreakoutGameConstants.brickCornerRadius)
                     gameView.addSubview(brick)
-                    
+                    let identifier = "Brick" + "\(row*Int(BreakoutGameConstants.bricksPerCol) + col)"
                     let path = UIBezierPath(roundedRect: brick.frame, cornerRadius: BreakoutGameConstants.brickCornerRadius)
-                    breakoutBehavior.addBarrier(path, named: "Brick" + "\(row*Int(BreakoutGameConstants.bricksPerCol) + col)")
+                    breakoutBehavior.addBrick(brick, identifier: identifier, boundary: path)
                 }
             }
         }
+        
+        let origin = gameView.center
+        let ballFrame = CGRect(origin: origin, size: CGSize(width: 16, height: 16))
+        let ball = Ball(frame: ballFrame)
+        ball.layer.cornerRadius = 8
+        ball.backgroundColor = UIColor.random
+        breakoutBehavior.addBall(ball)
+        gameView.addSubview(ball)
     }
 }
 
