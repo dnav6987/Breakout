@@ -54,6 +54,7 @@ class BreakoutGame {
                         size: CGSize(width: Constants.ballSize, height: Constants.ballSize),
                         cornerRadius: Constants.ballSize/2)
         breakoutBehavior.addBall(ball)
+
         let paddleOrigin = CGPoint(x: gameView.center.x - Paddle.getPaddleSize(gameView).width/2,
                                    y: gameView.bounds.maxY - 5*Paddle.getPaddleSize(gameView).height)
         let paddle = Paddle(view: gameView,
