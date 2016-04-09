@@ -100,6 +100,9 @@
                                                 </label>
                                                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="jXr-a6-BKt">
                                                     <rect key="frame" x="498" y="7" width="94" height="29"/>
+                                                    <connections>
+                                                        <action selector="changeNumRows:" destination="IK7-6l-x39" eventType="valueChanged" id="ktn-5U-aZ4"/>
+                                                    </connections>
                                                 </stepper>
                                             </subviews>
                                             <constraints>
@@ -132,6 +135,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="zzb-F6-xER"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="changeBallSpeed:" destination="IK7-6l-x39" eventType="valueChanged" id="BkS-Ej-CIY"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>
@@ -163,6 +169,9 @@
                                                         <segment title="3"/>
                                                         <segment title="4"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="changeNumBalls:" destination="IK7-6l-x39" eventType="valueChanged" id="tp2-tg-MVA"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
@@ -191,6 +200,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="646-uR-jod"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="changeBallElasticity:" destination="IK7-6l-x39" eventType="valueChanged" id="2FD-b7-hYx"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>
@@ -223,6 +235,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="6LC-rC-bTa"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="changePaddleSize:" destination="IK7-6l-x39" eventType="valueChanged" id="ss2-Tf-qWq"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>

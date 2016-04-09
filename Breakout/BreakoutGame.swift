@@ -17,13 +17,13 @@ struct Constants {
     static var bricksPerRow: CGFloat = 12
     static let brickAspectRatio: CGFloat = 3
     static let brickCornerRadius: CGFloat = 10
-    static let numRows = 1
+    static var numRows = 1
     
-    static let paddlesPerRow: CGFloat = 5
-    static let paddleAspectRatio: CGFloat = 5
+    static var paddlesPerRow: CGFloat = 5
+    static let paddleAspectRatio: CGFloat = 10
     static let paddleCornerRadius: CGFloat = 15
     
-    static let ballSize: CGFloat = 16
+    static var ballSize: CGFloat = 16
 }
 
 class BreakoutGame {
