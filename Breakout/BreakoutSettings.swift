@@ -9,11 +9,11 @@
 import UIKit
 
 class BreakoutSettingsViewController: UITableViewController {
-    
-    @IBOutlet weak var brickSize: UISlider!
-    @IBOutlet weak var numRows: UIStepper!
-    @IBOutlet weak var ballSpeed: UISlider!
-    @IBOutlet weak var numBalls: UISegmentedControl!
-    @IBOutlet weak var ballElasticity: UISlider!
-    @IBOutlet weak var paddleSize: UISlider!
+    @IBAction func changeBrickSize(sender: UISlider) {
+        Constants.bricksPerRow = CGFloat(-sender.value)
+        if let gameViewController = self.tabBarController?.viewControllers![0] as? BreakoutViewController {   // The game view controller
+            gameViewController.newGame()
+        }
+    }
+
 }

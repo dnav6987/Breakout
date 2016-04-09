@@ -72,6 +72,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="Kc8-9C-h3O"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="changeBrickSize:" destination="IK7-6l-x39" eventType="valueChanged" id="QLP-Sp-fb4"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>
@@ -239,14 +242,6 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Settings" id="5OW-io-CKW"/>
-                    <connections>
-                        <outlet property="ballElasticity" destination="YhY-vs-Xwz" id="oqS-ww-wo1"/>
-                        <outlet property="ballSpeed" destination="VRg-82-Db4" id="BeB-ry-Row"/>
-                        <outlet property="brickSize" destination="Ocz-d3-jde" id="EQp-Ib-mHe"/>
-                        <outlet property="numBalls" destination="W4M-7Q-hI9" id="ud6-BW-8aA"/>
-                        <outlet property="numRows" destination="jXr-a6-BKt" id="afW-0E-MHV"/>
-                        <outlet property="paddleSize" destination="2Sg-3S-C4L" id="EYF-Ld-gtw"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EUX-Y4-BKv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

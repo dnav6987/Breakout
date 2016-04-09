@@ -41,5 +41,11 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
 
         //TODO
     @IBAction func reset(sender: UILongPressGestureRecognizer) {
+        
+    }
+    
+    func newGame() {
+        breakoutGame.endGame()
+        breakoutGame.newGame(gameView, behavior: breakoutBehavior)
     }
 }

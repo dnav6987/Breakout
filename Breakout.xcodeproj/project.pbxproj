@@ -105,8 +105,8 @@
 			children = (
 				3EB1722E1CB6E72F00C69BC3 /* AppDelegate.swift */,
 				3EB1726C1CB6EE0800C69BC3 /* BreakoutBehavior.swift */,
-				3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */,
 				3EB1726E1CB8223F00C69BC3 /* BreakoutGame.swift */,
+				3EB1725C1CB6EA7100C69BC3 /* BreakoutViewController.swift */,
 				3EB172321CB6E72F00C69BC3 /* Main.storyboard */,
 				3E97CA671CB975F5002CAB16 /* BreakoutSettings.swift */,
 				3EB172351CB6E72F00C69BC3 /* Assets.xcassets */,

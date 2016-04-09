@@ -14,12 +14,12 @@ typealias Paddle = BreakoutGameItem
 
 // TODO put in settings
 struct Constants {
-    static let bricksPerRow: CGFloat = 12
+    static var bricksPerRow: CGFloat = 12
     static let brickAspectRatio: CGFloat = 3
     static let brickCornerRadius: CGFloat = 10
     static let numRows = 1
     
-    static let paddlesPerRow: CGFloat = 8
+    static let paddlesPerRow: CGFloat = 5
     static let paddleAspectRatio: CGFloat = 5
     static let paddleCornerRadius: CGFloat = 15
     
@@ -29,9 +29,10 @@ struct Constants {
 class BreakoutGame {
     var gameView = UIView()
     var breakoutBehavior = BreakoutBehavior()
+    var ball = Ball()
     var paddle = Paddle()
     
-    func newGame(view: UIView, behavior: BreakoutBehavior) {
+    func newGame(view: UIView, behavior: BreakoutBehavior) {        
         gameView = view
         breakoutBehavior = behavior
         
@@ -50,7 +51,7 @@ class BreakoutGame {
             }
         }
         
-        let ball = Ball(view: gameView,
+        ball = Ball(view: gameView,
                         origin: gameView.center,
                         size: CGSize(width: Constants.ballSize, height: Constants.ballSize),
                         cornerRadius: Constants.ballSize/2)
@@ -68,6 +69,15 @@ class BreakoutGame {
     
     func movePaddle(dx: CGFloat) {  // negative values are left, possitive values are right
         paddle.move(dx)
+        breakoutBehavior.removePaddle(paddle)
+        breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.path)
+    }
+    
+    func endGame() {
+        breakoutBehavior.clearBricks()
+        breakoutBehavior.removeBall(ball)
+        breakoutBehavior.removePaddle(paddle)
+        paddle.removeFromSuperview()
     }
 }
 
@@ -116,6 +126,7 @@ private extension Paddle {
         if (self.frame.origin.x > self.superview!.frame.minX || dx>0) &&
             (self.frame.origin.x + Paddle.getPaddleSize(self.superview!).width < self.superview!.frame.maxX || dx<0) {
             self.frame.origin.x += dx
+            self.path = UIBezierPath(roundedRect: frame, cornerRadius: Constants.brickCornerRadius)
         }
     }
 }

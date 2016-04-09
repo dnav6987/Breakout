@@ -13,7 +13,7 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
     lazy var gravity: UIGravityBehavior = {
         let lazyGravity = UIGravityBehavior()
-        lazyGravity.gravityDirection = CGVectorMake(0, 0.5)
+        lazyGravity.gravityDirection = CGVectorMake(0, 0.3)
         return lazyGravity
     }()   // TODO needed?
 
@@ -26,7 +26,7 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
     lazy var ballBehavior: UIDynamicItemBehavior = {
         let lazyBreakoutBehavior = UIDynamicItemBehavior()
-        lazyBreakoutBehavior.elasticity = 0.75
+        lazyBreakoutBehavior.elasticity = 0.0
         return lazyBreakoutBehavior
     }()
     
@@ -59,8 +59,15 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
                                    options: UIViewAnimationOptions.TransitionFlipFromRight,
                                    animations: nil,
                                    completion: nil)
+            removeBarrier(named: identifier)
             brick.removeFromSuperview()
             bricks.removeValueForKey(identifier)
+        }
+    }
+    
+    func clearBricks() {
+        for (identifier, _) in bricks {
+            removeBrick(identifier)
         }
     }
     
@@ -82,16 +89,20 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         addBarrier(boundary, named: identifier)
     }
     
+    func removePaddle(paddle: Paddle) {
+        removeBarrier(named: paddle.identifier)
+    }
+    
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {
         if identifier != nil {
             if "\(identifier!)" != "Paddle" {
-                gravity.gravityDirection.dy = 0.5
+                gravity.gravityDirection.dy = 0.3
                 removeBrick("\(identifier!)")
             } else {
-                gravity.gravityDirection.dy = -0.5
+                gravity.gravityDirection.dy = -0.3
             }
         } else if fabs(fabs(p.y) - item.bounds.minY) < 2 {  // arbitrary
-            gravity.gravityDirection.dy = 0.5
+            gravity.gravityDirection.dy = 0.3
         }
     }
 }
