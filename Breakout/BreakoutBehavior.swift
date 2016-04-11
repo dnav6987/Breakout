@@ -10,12 +10,6 @@ import UIKit
 
 class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     var bricks = [String : Brick]()
-    
-    lazy var gravity: UIGravityBehavior = {
-        let lazyGravity = UIGravityBehavior()
-        lazyGravity.gravityDirection = CGVectorMake(0, 0.3)
-        return lazyGravity
-    }()   // TODO needed?
 
     lazy var collider: UICollisionBehavior = {
         let lazyCollider = UICollisionBehavior()
@@ -26,13 +20,14 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
     lazy var ballBehavior: UIDynamicItemBehavior = {
         let lazyBreakoutBehavior = UIDynamicItemBehavior()
-        lazyBreakoutBehavior.elasticity = 0.0
+        lazyBreakoutBehavior.elasticity = GameSettings.elasticity
+        lazyBreakoutBehavior.friction = 0.0
+        lazyBreakoutBehavior.resistance = 0.0
         return lazyBreakoutBehavior
     }()
     
     override init() {
         super.init()
-        addChildBehavior(gravity)
         addChildBehavior(collider)
         addChildBehavior(ballBehavior)
     }
@@ -52,37 +47,46 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     }
     
     func removeBrick(identifier: String) {
-        removeBarrier(named: identifier)
         if let brick = bricks[identifier] {
          UIView.transitionWithView(brick,
-                                   duration: 1,
-                                   options: UIViewAnimationOptions.TransitionFlipFromRight,
+                                   duration: 0.5,
+                                   options: UIViewAnimationOptions.TransitionFlipFromBottom,
                                    animations: nil,
-                                   completion: nil)
-            removeBarrier(named: identifier)
-            brick.removeFromSuperview()
-            bricks.removeValueForKey(identifier)
+                                   completion: { (finished: Bool) -> () in
+                                    if finished { brick.removeFromSuperview() }
+            })
+            self.removeBarrier(named: identifier)
+            self.bricks.removeValueForKey(identifier)
         }
     }
     
     func clearBricks() {
-        for (identifier, _) in bricks {
-            removeBrick(identifier)
-        }
+        for (identifier, _) in bricks { removeBrick(identifier) }
     }
     
     func addBall(ball: UIView) {
         dynamicAnimator?.referenceView?.addSubview(ball)
-        gravity.addItem(ball)
         collider.addItem(ball)
         ballBehavior.addItem(ball)
+        pushBall(ball as UIDynamicItem)
     }
     
     func removeBall(ball: UIView) {
-        gravity.removeItem(ball)
         collider.removeItem(ball)
         ballBehavior.removeItem(ball)
         ball.removeFromSuperview()
+    }
+    
+    func pushBall(ball: UIDynamicItem) {
+        let push = UIPushBehavior(items: [ball], mode: .Instantaneous)
+        push.magnitude = GameSettings.speed
+        push.angle = CGFloat(M_PI/2) + CGFloat.random(60)*CGFloat(M_PI/180) -  CGFloat(30*M_PI/180)
+        push.action = { [unowned push] in
+            if !push.active {
+                self.removeChildBehavior(push)
+            }
+        }
+        addChildBehavior(push)
     }
     
     func addPaddle(paddle: Paddle, identifier: String, boundary: UIBezierPath) {
@@ -96,13 +100,14 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {
         if identifier != nil {
             if "\(identifier!)" != "Paddle" {
-                gravity.gravityDirection.dy = 0.3
                 removeBrick("\(identifier!)")
-            } else {
-                gravity.gravityDirection.dy = -0.3
             }
-        } else if fabs(fabs(p.y) - item.bounds.minY) < 2 {  // arbitrary
-            gravity.gravityDirection.dy = 0.3
         }
+    }
+}
+
+private extension CGFloat {
+    static func random(max: Int) -> CGFloat {
+        return CGFloat(arc4random() % UInt32(max))
     }
 }

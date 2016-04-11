@@ -21,7 +21,7 @@
                         <gestureRecognizers/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="uIL-ce-Vg5" appends="YES" id="3TO-a1-AJN"/>
-                            <outletCollection property="gestureRecognizers" destination="dAL-zY-KuW" appends="YES" id="rnJ-8A-r0m"/>
+                            <outletCollection property="gestureRecognizers" destination="ZzV-Lb-3Aa" appends="YES" id="Lif-nV-5TH"/>
                         </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Game" id="EWB-pg-DLi"/>
@@ -35,11 +35,11 @@
                         <action selector="movePaddle:" destination="XBc-75-S7S" id="3lD-mp-Qzm"/>
                     </connections>
                 </panGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dAL-zY-KuW">
+                <tapGestureRecognizer numberOfTapsRequired="2" id="ZzV-Lb-3Aa">
                     <connections>
-                        <action selector="reset:" destination="XBc-75-S7S" id="JQg-5Z-XHR"/>
+                        <action selector="reset:" destination="XBc-75-S7S" id="BVd-VF-J90"/>
                     </connections>
-                </pongPressGestureRecognizer>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="594" y="413"/>
         </scene>
@@ -51,11 +51,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New settings will not take effect until the next game starts. To start the next game immediately, double tap the game screen." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sWB-ct-0Ty">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <sections>
                             <tableViewSection headerTitle="Bricks" id="N0l-9m-d4X">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vRf-kP-lF7">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="133" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vRf-kP-lF7" id="l95-4o-2Ra">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -67,7 +74,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-13" minValue="-25" maxValue="-3" translatesAutoresizingMaskIntoConstraints="NO" id="Ocz-d3-jde">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-12" minValue="-20" maxValue="-5" translatesAutoresizingMaskIntoConstraints="NO" id="Ocz-d3-jde">
                                                     <rect key="frame" x="476" y="7" width="118" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="Kc8-9C-h3O"/>
@@ -86,7 +93,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7Nt-hW-SoS">
-                                        <rect key="frame" x="0.0" y="94" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="177" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Nt-hW-SoS" id="gPZ-wA-JgQ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -98,7 +105,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="jXr-a6-BKt">
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" maximumValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="jXr-a6-BKt">
                                                     <rect key="frame" x="498" y="7" width="94" height="29"/>
                                                     <connections>
                                                         <action selector="changeNumRows:" destination="IK7-6l-x39" eventType="valueChanged" id="ktn-5U-aZ4"/>
@@ -117,39 +124,8 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Ball" id="M4D-IT-3by">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pUK-Iv-WGf">
-                                        <rect key="frame" x="0.0" y="189" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pUK-Iv-WGf" id="4nK-Z5-Ep3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ball Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gip-ed-a8M">
-                                                    <rect key="frame" x="8" y="10" width="96" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="VRg-82-Db4">
-                                                    <rect key="frame" x="476" y="7" width="118" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="114" id="zzb-F6-xER"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <action selector="changeBallSpeed:" destination="IK7-6l-x39" eventType="valueChanged" id="BkS-Ej-CIY"/>
-                                                    </connections>
-                                                </slider>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Gip-ed-a8M" firstAttribute="centerY" secondItem="4nK-Z5-Ep3" secondAttribute="centerY" id="2LP-NP-ARp"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="Gip-ed-a8M" secondAttribute="leading" id="MEi-SZ-P4T"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="VRg-82-Db4" secondAttribute="trailing" id="kHc-oA-ngY"/>
-                                                <constraint firstItem="VRg-82-Db4" firstAttribute="centerY" secondItem="4nK-Z5-Ep3" secondAttribute="centerY" id="yYX-nU-uzI"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fDl-ic-rz4">
-                                        <rect key="frame" x="0.0" y="233" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="272" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fDl-ic-rz4" id="VUE-iS-T9B">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -182,8 +158,39 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pUK-Iv-WGf">
+                                        <rect key="frame" x="0.0" y="316" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pUK-Iv-WGf" id="4nK-Z5-Ep3">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ball Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gip-ed-a8M">
+                                                    <rect key="frame" x="8" y="10" width="96" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.050000000000000003" minValue="0.0" maxValue="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="VRg-82-Db4">
+                                                    <rect key="frame" x="476" y="7" width="118" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="114" id="zzb-F6-xER"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="changeBallSpeed:" destination="IK7-6l-x39" eventType="valueChanged" id="BkS-Ej-CIY"/>
+                                                    </connections>
+                                                </slider>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Gip-ed-a8M" firstAttribute="centerY" secondItem="4nK-Z5-Ep3" secondAttribute="centerY" id="2LP-NP-ARp"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="Gip-ed-a8M" secondAttribute="leading" id="MEi-SZ-P4T"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="VRg-82-Db4" secondAttribute="trailing" id="kHc-oA-ngY"/>
+                                                <constraint firstItem="VRg-82-Db4" firstAttribute="centerY" secondItem="4nK-Z5-Ep3" secondAttribute="centerY" id="yYX-nU-uzI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5nG-Gb-Pza">
-                                        <rect key="frame" x="0.0" y="277" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="360" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5nG-Gb-Pza" id="dic-DK-EeF">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -195,7 +202,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YhY-vs-Xwz">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YhY-vs-Xwz">
                                                     <rect key="frame" x="476" y="7" width="118" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="646-uR-jod"/>
@@ -218,7 +225,7 @@
                             <tableViewSection headerTitle="Paddle" id="Vro-q5-E5h">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PQE-oD-fws">
-                                        <rect key="frame" x="0.0" y="372" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="455" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PQE-oD-fws" id="YsC-ZI-ibV">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -230,7 +237,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-13" minValue="-25" maxValue="-3" translatesAutoresizingMaskIntoConstraints="NO" id="2Sg-3S-C4L">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-5" minValue="-10" maxValue="-3" translatesAutoresizingMaskIntoConstraints="NO" id="2Sg-3S-C4L">
                                                     <rect key="frame" x="476" y="7" width="118" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="114" id="6LC-rC-bTa"/>
