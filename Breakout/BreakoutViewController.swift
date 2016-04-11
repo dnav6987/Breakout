@@ -12,7 +12,7 @@ typealias Brick = BreakoutGameItem
 typealias Ball = BreakoutGameItem
 typealias Paddle = BreakoutGameItem
 
-class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
+class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate, UICollisionBehaviorDelegate {
     @IBOutlet var gameView: UIView!
     
     var balls = [Ball]()
@@ -30,6 +30,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
         super.viewDidLoad()
         animator.addBehavior(breakoutBehavior)
         gameView.backgroundColor = UIColor.blackColor()
+        breakoutBehavior.collider.collisionDelegate = self
         newGame()
     }
     
@@ -38,7 +39,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
         case .Changed:
             paddle.move(sender.translationInView(gameView).x)
             breakoutBehavior.removePaddle(paddle)
-            breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.path)
+            breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.boundary)
             sender.setTranslation(CGPointZero, inView: gameView)
         default: break
         }
@@ -58,7 +59,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
     func initializeBricks() {
         for row in 0..<GameSettings.numRows {
             for col in 0..<Int(GameSettings.bricksPerRow) {
-                if CGFloat.random(100) < 80 {
+                if CGFloat.random(100) < GameSettings.brickPercentage {
                     let origin = CGPoint(x: CGFloat(col)*Brick.getBrickSize(gameView).width, y: CGFloat(row)*Brick.getBrickSize(gameView).height)
                     let identifier = row*Int(GameSettings.bricksPerRow) + col
                     let brick = Brick(view: gameView,
@@ -66,7 +67,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
                                       size: Brick.getBrickSize(gameView),
                                       cornerRadius: GameSettings.brickCornerRadius,
                                       identifier: identifier)
-                    breakoutBehavior.addBrick(brick, identifier: brick.identifier, boundary: brick.path)
+                    breakoutBehavior.addBrick(brick, identifier: brick.identifier, boundary: brick.boundary)
                 }
             }
         }
@@ -82,6 +83,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
                             cornerRadius: GameSettings.ballSize/2)
             breakoutBehavior.addBall(ball)
             balls.append(ball)
+            pushBall(ball as UIDynamicItem)
         }
     }
     
@@ -94,7 +96,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
                         size: Paddle.getPaddleSize(gameView),
                         cornerRadius: GameSettings.paddleCornerRadius,
                         true)
-        breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.path)
+        breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.boundary)
 
     }
     
@@ -108,12 +110,26 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate {
             view.removeFromSuperview()
         }
     }
+    
+    func pushBall(ball: UIDynamicItem) {
+        let push = UIPushBehavior(items: [ball], mode: .Instantaneous)
+        push.magnitude = GameSettings.speed
+        push.angle = CGFloat(M_PI/2) + CGFloat.random(60)*CGFloat(M_PI/180) -  CGFloat(30*M_PI/180)
+        push.action = { [unowned push] in
+            if !push.active { self.breakoutBehavior.removeChildBehavior(push) }
+        }
+        breakoutBehavior.addChildBehavior(push)
+    }
+    
+    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {
+            if identifier != nil && "\(identifier!)" != "Paddle" { breakoutBehavior.removeBrick("\(identifier!)") }
+    }
 }
 
 class BreakoutGameItem: UIView {
     var gameView = UIView()
     var identifier = ""
-    var path = UIBezierPath()
+    var boundary = UIBezierPath()
     
     convenience init(view: UIView, origin: CGPoint, size: CGSize, cornerRadius: CGFloat) {
         self.init(frame: CGRect(origin: origin, size: size))
@@ -128,7 +144,7 @@ private extension Brick {
     convenience init(view: UIView, origin: CGPoint, size: CGSize, cornerRadius: CGFloat, identifier: Int) {
         self.init(view: view, origin: origin, size: size, cornerRadius: cornerRadius)
         self.identifier = "Brick" + "\(identifier)"
-        path = UIBezierPath(roundedRect: frame, cornerRadius: GameSettings.brickCornerRadius)
+        boundary = UIBezierPath(roundedRect: frame, cornerRadius: GameSettings.brickCornerRadius)
     }
     
     static func getBrickSize(gameView: UIView) -> CGSize {
@@ -142,7 +158,7 @@ private extension Paddle {
     convenience init(view: UIView, origin: CGPoint, size: CGSize, cornerRadius: CGFloat, _: Bool) {
         self.init(view: view, origin: origin, size: size, cornerRadius: cornerRadius)
         self.identifier = "Paddle"
-        path = UIBezierPath(roundedRect: frame, cornerRadius: GameSettings.brickCornerRadius)
+        boundary = UIBezierPath(roundedRect: frame, cornerRadius: GameSettings.brickCornerRadius)
     }
     
     static func getPaddleSize(gameView: UIView) -> CGSize {
@@ -155,7 +171,7 @@ private extension Paddle {
         if (self.frame.origin.x > self.superview!.frame.minX || dx>0) &&
             (self.frame.origin.x + Paddle.getPaddleSize(self.superview!).width < self.superview!.frame.maxX || dx<0) {
             self.frame.origin.x += dx
-            self.path = UIBezierPath(roundedRect: frame, cornerRadius: GameSettings.brickCornerRadius)
+            self.boundary = UIBezierPath(roundedRect: frame, cornerRadius: GameSettings.brickCornerRadius)
         }
     }
 }

@@ -8,13 +8,12 @@
 
 import UIKit
 
-class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
+class BreakoutBehavior: UIDynamicBehavior {
     var bricks = [String : Brick]()
 
     lazy var collider: UICollisionBehavior = {
         let lazyCollider = UICollisionBehavior()
         lazyCollider.translatesReferenceBoundsIntoBoundary = true
-        lazyCollider.collisionDelegate=self
         return lazyCollider
     }()
     
@@ -68,7 +67,6 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         dynamicAnimator?.referenceView?.addSubview(ball)
         collider.addItem(ball)
         ballBehavior.addItem(ball)
-        pushBall(ball as UIDynamicItem)
     }
     
     func removeBall(ball: UIView) {
@@ -77,32 +75,12 @@ class BreakoutBehavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         ball.removeFromSuperview()
     }
     
-    func pushBall(ball: UIDynamicItem) {
-        let push = UIPushBehavior(items: [ball], mode: .Instantaneous)
-        push.magnitude = GameSettings.speed
-        push.angle = CGFloat(M_PI/2) + CGFloat.random(60)*CGFloat(M_PI/180) -  CGFloat(30*M_PI/180)
-        push.action = { [unowned push] in
-            if !push.active {
-                self.removeChildBehavior(push)
-            }
-        }
-        addChildBehavior(push)
-    }
-    
     func addPaddle(paddle: Paddle, identifier: String, boundary: UIBezierPath) {
         addBarrier(boundary, named: identifier)
     }
     
     func removePaddle(paddle: Paddle) {
         removeBarrier(named: paddle.identifier)
-    }
-    
-    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {
-        if identifier != nil {
-            if "\(identifier!)" != "Paddle" {
-                removeBrick("\(identifier!)")
-            }
-        }
     }
 }
 

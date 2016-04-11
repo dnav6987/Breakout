@@ -39,6 +39,7 @@ struct GameSettings {
     static let brickAspectRatio: CGFloat = 3
     static let brickCornerRadius: CGFloat = 10
     static var numRows = 3
+    static var brickPercentage: CGFloat = 80
     
     static var paddlesPerRow: CGFloat = 5
     static let paddleAspectRatio: CGFloat = 10
@@ -50,3 +51,5 @@ struct GameSettings {
     static var speed: CGFloat = 0.05
     static var elasticity: CGFloat = 1.0
 }
+
+//TODO brick percentage, ballsize
