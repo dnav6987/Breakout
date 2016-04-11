@@ -15,6 +15,7 @@ typealias Paddle = BreakoutGameItem
 class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate, UICollisionBehaviorDelegate {
     @IBOutlet var gameView: UIView!
     
+    var numBalls = GameSettings.numBalls
     var balls = [Ball]()
     var paddle = Paddle()
     
@@ -34,23 +35,8 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
         newGame()
     }
     
-    @IBAction func movePaddle(sender: UIPanGestureRecognizer) {
-        switch sender.state {
-        case .Changed:
-            paddle.move(sender.translationInView(gameView).x)
-            breakoutBehavior.removePaddle(paddle)
-            breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.boundary)
-            sender.setTranslation(CGPointZero, inView: gameView)
-        default: break
-        }
-    }
-
-    @IBAction func reset(sender: UITapGestureRecognizer) {
-        endGame()
-        newGame()
-    }
-    
     func newGame() {
+        numBalls = GameSettings.numBalls
         initializeBricks()
         initializeBalls()
         initializePaddle()
@@ -97,7 +83,7 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
                         cornerRadius: GameSettings.paddleCornerRadius,
                         true)
         breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.boundary)
-
+        
     }
     
     func endGame() {
@@ -110,6 +96,20 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
             view.removeFromSuperview()
         }
     }
+
+    
+    @IBAction func movePaddle(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .Changed:
+            paddle.move(sender.translationInView(gameView).x)
+            breakoutBehavior.removePaddle(paddle)
+            breakoutBehavior.addPaddle(paddle, identifier: paddle.identifier, boundary: paddle.boundary)
+            sender.setTranslation(CGPointZero, inView: gameView)
+        default: break
+        }
+    }
+
+    @IBAction func reset(sender: UITapGestureRecognizer) { endGame(); newGame() }
     
     func pushBall(ball: UIDynamicItem) {
         let push = UIPushBehavior(items: [ball], mode: .Instantaneous)
@@ -122,9 +122,20 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
     }
     
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {
-            if identifier != nil && "\(identifier!)" != "Paddle" { breakoutBehavior.removeBrick("\(identifier!)") }
+            if identifier != nil && "\(identifier!)" != "Paddle" {
+                breakoutBehavior.removeBrick("\(identifier!)")
+                if breakoutBehavior.bricks.count == 0 { reset(UITapGestureRecognizer()) }
+            }
+            else if p.y > paddle.frame.origin.y {
+                breakoutBehavior.removeBall(item as! Ball)
+                numBalls-=1
+                if numBalls == 0 { reset(UITapGestureRecognizer()) }
+        }
     }
 }
+
+
+// MARK: Breakout game items
 
 class BreakoutGameItem: UIView {
     var gameView = UIView()
@@ -140,6 +151,9 @@ class BreakoutGameItem: UIView {
     }
 }
 
+
+// MARK: Bricks
+
 private extension Brick {
     convenience init(view: UIView, origin: CGPoint, size: CGSize, cornerRadius: CGFloat, identifier: Int) {
         self.init(view: view, origin: origin, size: size, cornerRadius: cornerRadius)
@@ -153,6 +167,8 @@ private extension Brick {
         return CGSize(width: width, height: height)
     }
 }
+
+// MARK: Paddle
 
 private extension Paddle {
     convenience init(view: UIView, origin: CGPoint, size: CGSize, cornerRadius: CGFloat, _: Bool) {
@@ -175,6 +191,9 @@ private extension Paddle {
         }
     }
 }
+
+
+// MARK: CGFloat and UIColor
 
 private extension CGFloat {
     static func random(max: Int) -> CGFloat {

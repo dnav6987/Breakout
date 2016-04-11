@@ -9,29 +9,14 @@
 import UIKit
 
 class BreakoutSettingsViewController: UITableViewController {
-    @IBAction func changeBrickSize(sender: UISlider) {
-        GameSettings.bricksPerRow = CGFloat(-sender.value)
-    }
-
-    @IBAction func changeNumRows(sender: UIStepper) {
-        GameSettings.numRows = Int(sender.value)
-    }
-    
-    @IBAction func changeBallSpeed(sender: UISlider) {
-        GameSettings.speed = CGFloat(sender.value)
-    }
-    
-    @IBAction func changeNumBalls(sender: UISegmentedControl) {
-        GameSettings.numBalls = Int(sender.selectedSegmentIndex) + 1
-    }
-    
-    @IBAction func changeBallElasticity(sender: UISlider) {
-        GameSettings.elasticity = CGFloat(sender.value)
-    }
-    
-    @IBAction func changePaddleSize(sender: UISlider) {
-        GameSettings.paddlesPerRow = CGFloat(-sender.value)
-    }
+    @IBAction func changeBrickSize(sender: UISlider) { GameSettings.bricksPerRow = CGFloat(-sender.value) }
+    @IBAction func changeNumRows(sender: UIStepper) { GameSettings.numRows = Int(sender.value) }
+    @IBAction func changeBrickPercentage(sender: UISlider) { GameSettings.brickPercentage = CGFloat(sender.value) }
+    @IBAction func changeBallSpeed(sender: UISlider) { GameSettings.speed = CGFloat(sender.value) }
+    @IBAction func changeNumBalls(sender: UISegmentedControl) { GameSettings.numBalls = Int(sender.selectedSegmentIndex) + 1 }
+    @IBAction func changeBallElasticity(sender: UISlider) { GameSettings.elasticity = CGFloat(sender.value) }
+    @IBAction func changeBallSize(sender: UISlider) { GameSettings.ballSize = CGFloat(sender.value) }
+    @IBAction func changePaddleSize(sender: UISlider) { GameSettings.paddlesPerRow = CGFloat(-sender.value) }
 }
 
 struct GameSettings {
@@ -45,11 +30,9 @@ struct GameSettings {
     static let paddleAspectRatio: CGFloat = 10
     static let paddleCornerRadius: CGFloat = 15
     
-    static let ballSize: CGFloat = 16
+    static var ballSize: CGFloat = 16
     static var numBalls: Int = 1
     
     static var speed: CGFloat = 0.05
     static var elasticity: CGFloat = 1.0
 }
-
-//TODO brick percentage, ballsize
