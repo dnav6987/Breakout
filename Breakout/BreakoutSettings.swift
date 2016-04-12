@@ -6,8 +6,13 @@
 //  Copyright © 2016 Dan Navarro. All rights reserved.
 //
 
+/*
+    Handles game settings, some of which can be altered by the user.
+ */
+
 import UIKit
 
+// User control of the settings
 class BreakoutSettingsViewController: UITableViewController {
     @IBAction func changeBrickSize(sender: UISlider) { GameSettings.bricksPerRow = CGFloat(-sender.value) }
     @IBAction func changeNumRows(sender: UIStepper) { GameSettings.numRows = Int(sender.value) }
@@ -19,6 +24,8 @@ class BreakoutSettingsViewController: UITableViewController {
     @IBAction func changePaddleSize(sender: UISlider) { GameSettings.paddlesPerRow = CGFloat(-sender.value) }
 }
 
+
+// The actual values that will be used by the game
 struct GameSettings {
     static var bricksPerRow: CGFloat = 12
     static let brickAspectRatio: CGFloat = 3

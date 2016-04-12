@@ -131,12 +131,16 @@ class BreakoutViewController: UIViewController, UIDynamicAnimatorDelegate, UICol
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?,atPoint p: CGPoint) {
         if identifier != nil {
             if "\(identifier!)" != "Paddle" {   // i.e. it is a brick
+                // how far off the y-velocity is from what it should be
                 let ySpeedError = GameSettings.speed - breakoutBehavior.ballBehavior.linearVelocityForItem(item).y
+                // correct the velocity
                 breakoutBehavior.ballBehavior.addLinearVelocity(CGPoint(x: 0,y: ySpeedError), forItem: item)
                 breakoutBehavior.removeBrick("\(identifier!)")
                 if breakoutBehavior.bricks.count == 0 { reset(UITapGestureRecognizer()) }   // restart game when all bricks are gone
-            } else {
+            } else {    // it is the paddle
+                // how far off the y-velocity is from what it should be
                 let ySpeedError = -GameSettings.speed - breakoutBehavior.ballBehavior.linearVelocityForItem(item).y
+                // correct the velocity
                 breakoutBehavior.ballBehavior.addLinearVelocity(CGPoint(x: 0,y: ySpeedError), forItem: item)
             }
         } else if p.y > paddle.frame.origin.y + paddle.frame.height {   // i.e. the ball is below the paddle

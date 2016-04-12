@@ -9,17 +9,18 @@
 import UIKit
 
 class BreakoutBehavior: UIDynamicBehavior {
-    var bricks = [String : Brick]()
+    var bricks = [String : Brick]() // store the bricks so we can keep track of the boundaries
 
-    lazy var collider: UICollisionBehavior = {
+    lazy var collider: UICollisionBehavior = {  // collider behavior
         let lazyCollider = UICollisionBehavior()
         lazyCollider.translatesReferenceBoundsIntoBoundary = true
         return lazyCollider
     }()
     
-    lazy var ballBehavior: UIDynamicItemBehavior = {
+    lazy var ballBehavior: UIDynamicItemBehavior = {    // behaviors for the ball
         let lazyBreakoutBehavior = UIDynamicItemBehavior()
         lazyBreakoutBehavior.elasticity = GameSettings.elasticity
+        // don't want any friction or resistance because they slow down the ball. (Honestly, not sure if this is working though)
         lazyBreakoutBehavior.friction = 0.0
         lazyBreakoutBehavior.resistance = 0.0
         return lazyBreakoutBehavior
@@ -31,20 +32,24 @@ class BreakoutBehavior: UIDynamicBehavior {
         addChildBehavior(ballBehavior)
     }
     
+    // add a collision boundary
     func addBarrier(path: UIBezierPath, named name: String) {
         collider.removeBoundaryWithIdentifier(name)
         collider.addBoundaryWithIdentifier(name, forPath: path)
     }
     
+    // remove a collision boundary
     func removeBarrier(named name: String) {
         collider.removeBoundaryWithIdentifier(name)
     }
     
+    // add the boundary of the brick and store the brick
     func addBrick(brick: Brick, identifier: String, boundary: UIBezierPath) {
         addBarrier(boundary, named: identifier)
         bricks[identifier] = brick
     }
     
+    // animate the brick, remove its collision boundary and remove it from the view
     func removeBrick(identifier: String) {
         if let brick = bricks[identifier] {
          UIView.transitionWithView(brick,
@@ -52,13 +57,14 @@ class BreakoutBehavior: UIDynamicBehavior {
                                    options: UIViewAnimationOptions.TransitionFlipFromBottom,
                                    animations: nil,
                                    completion: { (finished: Bool) -> () in
-                                    if finished { brick.removeFromSuperview() }
+                                    if finished { brick.removeFromSuperview() } // don't remove until animation is done
             })
             self.removeBarrier(named: identifier)
             self.bricks.removeValueForKey(identifier)
         }
     }
     
+    // remove all the bricks
     func clearBricks() {
         for (identifier, _) in bricks { removeBrick(identifier) }
     }
