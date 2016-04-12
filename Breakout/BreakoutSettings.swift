@@ -32,7 +32,8 @@ struct GameSettings {
     
     static var ballSize: CGFloat = 16
     static var numBalls: Int = 1
-    
-    static var speed: CGFloat = 0.05
     static var elasticity: CGFloat = 1.0
+    
+    static var speed: CGFloat = 400
+    static var initialSpeed: CGFloat = 0.05
 }
